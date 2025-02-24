@@ -1,19 +1,32 @@
-package com.example;
+import com.aventstack.extentreports.*;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import org.testng.annotations.*;
 
-import org.testng.annotations.Test;
-import static org.testng.Assert.assertTrue;
+public class TestReport {
+    ExtentReports extent;
+    ExtentTest test;
 
-public class StringManipulationTest {
-
-    @Test
-    public void testContains() {
-        String str = "Hello, World!";
-        assertTrue(str.contains("World"));
+    @BeforeTest
+    public void setup() {
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter("extent-report.html");
+        extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
     }
 
     @Test
-    public void testStartsWith() {
-        String str = "TestNG Test";
-        assertTrue(str.startsWith("TestNG"));
+    public void testPass() {
+        test = extent.createTest("Test Case - Pass");
+        test.pass("This test passed successfully.");
+    }
+
+    @Test
+    public void testFail() {
+        test = extent.createTest("Test Case - Fail");
+        test.fail("This test failed.");
+    }
+
+    @AfterTest
+    public void teardown() {
+        extent.flush(); // Generates the report
     }
 }
