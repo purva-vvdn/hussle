@@ -1,0 +1,7 @@
+<suite name="Test Suite">
+    <test name="String Manipulation Tests">
+        <classes>
+            <class name="com.example.StringManipulationTest"/>
+        </classes>
+    </test>
+</suite>
